@@ -14,6 +14,7 @@ import java.awt.*;
 public class MainFrame extends JFrame implements AsSubscriber,HasView {
     private JPanel currentPanel;
     private MenuPanel menuPanel;
+    private JPanel root;
     public MainFrame() throws HeadlessException {
         super("Time tracker");
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -30,9 +31,9 @@ public class MainFrame extends JFrame implements AsSubscriber,HasView {
 
     public void setContentPanel(JPanel panel){
         if(currentPanel != null){
-            this.remove(currentPanel);
+            this.root.remove(currentPanel);
         }
-        this.add(panel,BorderLayout.CENTER);
+        this.root.add(panel,BorderLayout.CENTER);
         this.currentPanel = panel;
         this.pack();
         this.repaint();
@@ -57,9 +58,11 @@ public class MainFrame extends JFrame implements AsSubscriber,HasView {
 
     @Override
     public void createView() {
-        this.add(new NavigationHeaderPanel(),BorderLayout.PAGE_START);
+        this.root = new JPanel(new BorderLayout());
+        this.root.add(new NavigationHeaderPanel(),BorderLayout.PAGE_START);
         this.menuPanel = new MenuPanel();
         this.menuPanel.setVisible(false);
         this.add(menuPanel,BorderLayout.LINE_START);
+        this.add(root,BorderLayout.CENTER);
     }
 }

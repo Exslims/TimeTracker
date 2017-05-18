@@ -18,12 +18,14 @@ public class ComponentsFactory {
     private Font LIGHT_FONT;
     private Font BOLD_FONT;
     private Font MEDIUM;
+    private Font REGULAR;
 
     public ComponentsFactory() {
         try {
-            this.BOLD_FONT = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("font/Roboto-Bold.ttf"));
+            this.BOLD_FONT = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("font/noto/NotoSans-Bold.ttf"));
             this.LIGHT_FONT = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("font/Roboto-Light.ttf"));
             this.MEDIUM = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("font/Roboto-Medium.ttf"));
+            this.REGULAR = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("font/noto/NotoSans-Regular.ttf"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -50,20 +52,7 @@ public class ComponentsFactory {
     public JLabel getLabel(String text, float size, Color foreground, TextStyle style) {
         JLabel label = new JLabel(text);
         label.setForeground(foreground);
-        switch (style){
-            case MEDIUM:{
-                label.setFont(MEDIUM.deriveFont(size));
-                break;
-            }
-            case BOLD: {
-                label.setFont(BOLD_FONT.deriveFont(size));
-                break;
-            }
-            case LIGHT: {
-                label.setFont(LIGHT_FONT.deriveFont(size));
-                break;
-            }
-        }
+        label.setFont(this.getFont(style,size));
         return label;
     }
     public JTextField getTextField(String text){
@@ -128,7 +117,7 @@ public class ComponentsFactory {
         }
         return button;
     }
-    public JButton getButton(String text) {
+    public JButton getButton(String text,TextStyle style, float size) {
         JButton button = new JButton(text){
             @Override
             protected void paintBorder(Graphics g) {
@@ -137,9 +126,9 @@ public class ComponentsFactory {
                 }
             }
         };
+        button.setFont(this.getFont(style,size));
         button.setBorder(BorderFactory.createLineBorder(AppThemeColor.DIVIDER_COLOR));
         button.setForeground(AppThemeColor.PRIMARY_COLOR);
-        button.setFont(BOLD_FONT.deriveFont(20f));
         button.setBackground(AppThemeColor.BACKGROUND);
         button.setPreferredSize(new Dimension(100,30));
         button.setFocusPainted(false);
@@ -211,5 +200,22 @@ public class ComponentsFactory {
             e.printStackTrace();
         }
         return icon;
+    }
+    public Font getFont(TextStyle style, float size){
+        switch (style){
+            case MEDIUM:{
+                return MEDIUM.deriveFont(size);
+            }
+            case BOLD: {
+                return BOLD_FONT.deriveFont(size);
+            }
+            case LIGHT: {
+                return LIGHT_FONT.deriveFont(size);
+            }
+            case REGULAR: {
+                return REGULAR.deriveFont(size);
+            }
+        }
+        return null;
     }
 }

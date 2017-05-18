@@ -17,4 +17,6 @@ public class AppThemeColor {
 
 
     public static final Color MENU_BG_COLOR = new Color(41, 44, 49);
+    public static final Color MENU_FONT_COLOR = new Color(225, 226, 228);
+    public static final Color MENU_SELECTED_COLOR = new Color(34, 39, 43);
 }
