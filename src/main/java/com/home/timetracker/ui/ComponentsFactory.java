@@ -9,17 +9,21 @@ import org.imgscalr.Scalr;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class ComponentsFactory {
-    private Font REGULAR_FONT;
+    private Font LIGHT_FONT;
     private Font BOLD_FONT;
+    private Font MEDIUM;
 
     public ComponentsFactory() {
         try {
             this.BOLD_FONT = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("font/Roboto-Bold.ttf"));
-            this.REGULAR_FONT = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("font/Roboto-Light.ttf"));
+            this.LIGHT_FONT = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("font/Roboto-Light.ttf"));
+            this.MEDIUM = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("font/Roboto-Medium.ttf"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -27,26 +31,45 @@ public class ComponentsFactory {
     public JLabel getLabel(String text) {
         JLabel label = new JLabel(text);
         label.setForeground(AppThemeColor.PRIMARY_TEXT);
-        label.setFont(REGULAR_FONT.deriveFont(16f));
+        label.setFont(LIGHT_FONT.deriveFont(16f));
         return label;
     }
     public JLabel getLabel(String text, int align) {
         JLabel label = new JLabel(text);
         label.setHorizontalAlignment(align);
         label.setForeground(AppThemeColor.PRIMARY_TEXT);
-        label.setFont(REGULAR_FONT.deriveFont(16f));
+        label.setFont(LIGHT_FONT.deriveFont(16f));
         return label;
     }
     public JLabel getLabel(String text, float size, Color foreground) {
         JLabel label = new JLabel(text);
         label.setForeground(foreground);
-        label.setFont(REGULAR_FONT.deriveFont(size));
+        label.setFont(LIGHT_FONT.deriveFont(size));
+        return label;
+    }
+    public JLabel getLabel(String text, float size, Color foreground, TextStyle style) {
+        JLabel label = new JLabel(text);
+        label.setForeground(foreground);
+        switch (style){
+            case MEDIUM:{
+                label.setFont(MEDIUM.deriveFont(size));
+                break;
+            }
+            case BOLD: {
+                label.setFont(BOLD_FONT.deriveFont(size));
+                break;
+            }
+            case LIGHT: {
+                label.setFont(LIGHT_FONT.deriveFont(size));
+                break;
+            }
+        }
         return label;
     }
     public JTextField getTextField(String text){
         JTextField textField = new JTextField(text);
         textField.setForeground(AppThemeColor.PRIMARY_TEXT);
-        textField.setFont(REGULAR_FONT.deriveFont(16f));
+        textField.setFont(LIGHT_FONT.deriveFont(16f));
         return textField;
     }
     public JLabel getIconLabel(String iconPath, int iconSize) {
@@ -68,7 +91,7 @@ public class ComponentsFactory {
         }
         return label;
     }
-    public JButton getIconButton(String iconPath, int iconSize, String text) {
+    public JButton getIconButton(String iconPath, int iconSize, Color bgColor) {
         JButton button = new JButton(""){
             @Override
             protected void paintBorder(Graphics g) {
@@ -77,11 +100,21 @@ public class ComponentsFactory {
                 }
             }
         };
+        button.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                button.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
+        });
         button.setBorder(null);
         button.setForeground(AppThemeColor.PRIMARY_COLOR);
         button.setFont(BOLD_FONT.deriveFont(24f));
-        button.setText(text);
-        button.setBackground(AppThemeColor.BACKGROUND);
+        button.setBackground(bgColor);
         button.setFocusPainted(false);
         button.addChangeListener(e->{
             if(!button.getModel().isPressed()){
@@ -134,8 +167,8 @@ public class ComponentsFactory {
         panel.setBackground(AppThemeColor.BACKGROUND);
         return panel;
     }
-    public JPanel getGridJPanel(int col,int row){
-        JPanel panel = new JPanel(new GridLayout(row,col,0,5));
+    public JPanel getGridJPanel(int col,int row, int hgap, int vgap){
+        JPanel panel = new JPanel(new GridLayout(row,col,hgap,vgap));
         panel.setBackground(AppThemeColor.BACKGROUND);
         return panel;
     }
@@ -164,7 +197,7 @@ public class ComponentsFactory {
         progressBar.setUI(new CircleProgressBarUI());
         progressBar.setStringPainted(true);
         progressBar.setBorderPainted(false);
-        progressBar.setFont(REGULAR_FONT.deriveFont(fontSize));
+        progressBar.setFont(LIGHT_FONT.deriveFont(fontSize));
         progressBar.setBackground(AppThemeColor.BACKGROUND);
         return progressBar;
     }

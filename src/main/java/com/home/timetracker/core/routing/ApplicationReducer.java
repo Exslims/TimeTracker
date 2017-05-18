@@ -7,7 +7,5 @@ import lombok.Data;
 @AllArgsConstructor
 public class ApplicationReducer<T> {
     private ApplicationState state;
-
-
     private T payload;
 }

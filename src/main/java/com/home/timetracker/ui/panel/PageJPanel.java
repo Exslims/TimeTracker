@@ -12,12 +12,14 @@ public abstract class PageJPanel<T> extends JPanel {
     protected PageJPanel(){
         super(new BorderLayout());
         this.setBackground(AppThemeColor.BACKGROUND_DARK);
-        this.setBorder(BorderFactory.createEmptyBorder(4,4,4,4));
         init();
     }
     protected abstract void init();
     public void setPayload(T payload) {
         this.payload = payload;
-        this.init();
+        if(this.payload != null) {
+            this.removeAll();
+            this.init();
+        }
     }
 }
