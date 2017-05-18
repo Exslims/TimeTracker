@@ -1,7 +1,9 @@
 package com.home.timetracker.ui.panel;
 
 
-public class TasksPanel extends PageJPanel {
+import com.home.timetracker.core.entity.User;
+
+public class TasksPanel extends PageJPanel<User> {
     @Override
     protected void init() {
 

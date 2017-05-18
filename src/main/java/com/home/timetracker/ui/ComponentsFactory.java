@@ -145,6 +145,15 @@ public class ComponentsFactory {
         panel.setBackground(AppThemeColor.BACKGROUND);
         return panel;
     }
+    public JPanel getSlideJPanel(LayoutManager layoutManager){
+        JPanel panel = new JPanel(layoutManager);
+        panel.setBackground(AppThemeColor.BACKGROUND);
+        panel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(AppThemeColor.DIVIDER_COLOR),
+                BorderFactory.createEmptyBorder(4,4,4,4)
+        ));
+        return panel;
+    }
     public JPanel getJPanel(LayoutManager layoutManager,Color background){
         JPanel panel = new JPanel(layoutManager);
         panel.setBackground(background);
