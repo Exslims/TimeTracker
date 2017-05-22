@@ -9,6 +9,8 @@ import com.home.timetracker.ui.TextStyle;
 import com.home.timetracker.ui.util.MenuListRenderer;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -40,6 +42,8 @@ public class MenuPanel extends BaseJPanel {
         list.setCellRenderer(new MenuListRenderer());
         list.setBackground(AppThemeColor.MENU_BG_COLOR);
         list.setSelectedIndex(0);
+        list.addListSelectionListener(e ->
+                list.getSelectedValue().getAction().onClick());
 
         JLabel appIcon = this.componentsFactory.getLabel("TimeTracker",20,AppThemeColor.MENU_FONT_COLOR, TextStyle.BOLD);
         appIcon.setIcon(new ImageIcon(this.componentsFactory.getIcon("app/app_icon.png", 36)));
@@ -55,10 +59,10 @@ public class MenuPanel extends BaseJPanel {
                     SubjectsStore.stateSubject.onNext(new ApplicationReducer(ApplicationState.DASHBOARD,null));
                 },new ImageIcon(this.componentsFactory.getIcon("app/dashboard_icon.png",26))),
                 new MenuEntry("Tasks",()->{
-                    SubjectsStore.stateSubject.onNext(new ApplicationReducer(ApplicationState.DASHBOARD,null));
+                    SubjectsStore.stateSubject.onNext(new ApplicationReducer(ApplicationState.TASKS_LIST,null));
                 },new ImageIcon(this.componentsFactory.getIcon("app/thickets_icon.png",26))),
                 new MenuEntry("Statistic",()->{
-                    SubjectsStore.stateSubject.onNext(new ApplicationReducer(ApplicationState.DASHBOARD,null));
+                    SubjectsStore.stateSubject.onNext(new ApplicationReducer(ApplicationState.STATISTIC,null));
                 },new ImageIcon(this.componentsFactory.getIcon("app/statistic_icon.png",26))),
                 new MenuEntry("Account",()->{
                     SubjectsStore.stateSubject.onNext(new ApplicationReducer(ApplicationState.DASHBOARD,null));

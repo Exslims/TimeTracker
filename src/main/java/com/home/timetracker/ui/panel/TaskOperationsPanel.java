@@ -5,7 +5,7 @@ import com.home.timetracker.core.entity.task.TrackerTask;
 
 public class TaskOperationsPanel extends PageJPanel<TrackerTask> {
     @Override
-    protected void init() {
+    public void init() {
 
     }
 }

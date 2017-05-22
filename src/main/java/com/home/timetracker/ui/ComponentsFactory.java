@@ -1,6 +1,8 @@
 package com.home.timetracker.ui;
 
 
+import com.home.timetracker.core.entity.task.TaskPriority;
+import com.home.timetracker.core.entity.task.TaskType;
 import com.home.timetracker.ui.util.CircleProgressBarUI;
 import com.home.timetracker.ui.util.ScrollUI;
 import com.home.timetracker.ui.util.VerticalScrollContainer;
@@ -33,20 +35,20 @@ public class ComponentsFactory {
     public JLabel getLabel(String text) {
         JLabel label = new JLabel(text);
         label.setForeground(AppThemeColor.PRIMARY_TEXT);
-        label.setFont(LIGHT_FONT.deriveFont(16f));
+        label.setFont(REGULAR.deriveFont(16f));
         return label;
     }
     public JLabel getLabel(String text, int align) {
         JLabel label = new JLabel(text);
         label.setHorizontalAlignment(align);
         label.setForeground(AppThemeColor.PRIMARY_TEXT);
-        label.setFont(LIGHT_FONT.deriveFont(16f));
+        label.setFont(REGULAR.deriveFont(16f));
         return label;
     }
     public JLabel getLabel(String text, float size, Color foreground) {
         JLabel label = new JLabel(text);
         label.setForeground(foreground);
-        label.setFont(LIGHT_FONT.deriveFont(size));
+        label.setFont(REGULAR.deriveFont(size));
         return label;
     }
     public JLabel getLabel(String text, float size, Color foreground, TextStyle style) {
@@ -170,16 +172,23 @@ public class ComponentsFactory {
         panel.setBackground(AppThemeColor.BACKGROUND);
         return panel;
     }
-    public JScrollPane getScrollPane(VerticalScrollContainer container){
+    public JProgressBar getProgressBar(int max, int value) {
+        JProgressBar progressBar = new JProgressBar(0, max);
+        progressBar.setForeground(AppThemeColor.HEADER_BUTTONS_COLOR);
+        progressBar.setBorderPainted(false);
+        progressBar.setValue(value);
+        return progressBar;
+    }
+    public JScrollPane getScrollPane(VerticalScrollContainer container, Color background){
         JScrollPane scrollPane = new JScrollPane(container);
         scrollPane.setBorder(BorderFactory.createEmptyBorder(4,4,4,4));
-        scrollPane.setBackground(AppThemeColor.BACKGROUND);
+        scrollPane.setBackground(background);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        container.getParent().setBackground(AppThemeColor.BACKGROUND);
+        container.getParent().setBackground(background);
         JScrollBar vBar = scrollPane.getVerticalScrollBar();
-        vBar.setBackground(AppThemeColor.BACKGROUND);
+        vBar.setBackground(background);
         vBar.setUI(new ScrollUI());
         vBar.setPreferredSize(new Dimension(15, Integer.MAX_VALUE));
         vBar.setUnitIncrement(3);
@@ -198,6 +207,34 @@ public class ComponentsFactory {
         progressBar.setFont(LIGHT_FONT.deriveFont(fontSize));
         progressBar.setBackground(AppThemeColor.BACKGROUND);
         return progressBar;
+    }
+    public JLabel getPriorityLabel(TaskPriority priority, int size){
+        switch (priority){
+            case CRITICAL:{
+                return this.getIconLabel("app/task_critical.png",size);
+            }
+            case HIGH:{
+                return this.getIconLabel("app/task_high.png",size);
+            }
+            case NORMAL:{
+                return this.getIconLabel("app/task_normal.png",size);
+            }
+            case LOW:{
+                return this.getIconLabel("app/task_low.png",size);
+            }
+        }
+        return null;
+    }
+    public JLabel getTaskTypeLabel(TaskType type, int size){
+        switch (type){
+            case BUG:{
+                return this.getIconLabel("app/bug_icon.png",size);
+            }
+            case FEATURE:{
+                return this.getIconLabel("app/feature_icon.png",size);
+            }
+        }
+        return null;
     }
     @SuppressWarnings("all")
     public BufferedImage getIcon(String path, int size){

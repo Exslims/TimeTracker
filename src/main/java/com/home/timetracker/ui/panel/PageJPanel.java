@@ -1,5 +1,6 @@
 package com.home.timetracker.ui.panel;
 
+import com.home.timetracker.core.SubjectsStore;
 import com.home.timetracker.ui.AppThemeColor;
 import com.home.timetracker.ui.ComponentsFactory;
 
@@ -12,14 +13,14 @@ public abstract class PageJPanel<T> extends JPanel {
     protected PageJPanel(){
         super(new BorderLayout());
         this.setBackground(AppThemeColor.BACKGROUND_DARK);
-        init();
     }
-    protected abstract void init();
+    public abstract void init();
     public void setPayload(T payload) {
         this.payload = payload;
         if(this.payload != null) {
             this.removeAll();
             this.init();
         }
+        SubjectsStore.packSubject.onNext(true);
     }
 }

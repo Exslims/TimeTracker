@@ -1,11 +1,15 @@
 package com.home.timetracker.core.entity.task;
 
 import com.home.timetracker.core.entity.User;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class TrackerTask {
     private String taskTitle;
 
@@ -18,5 +22,8 @@ public class TrackerTask {
 
     private LocalDateTime created;
     private LocalDateTime due;
+
+    private int estimatedTime;
+    private int dueTime;
 
 }

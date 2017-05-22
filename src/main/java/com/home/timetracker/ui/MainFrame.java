@@ -3,6 +3,7 @@ package com.home.timetracker.ui;
 
 import com.home.timetracker.core.AsSubscriber;
 import com.home.timetracker.core.SubjectsStore;
+import com.home.timetracker.ui.panel.AuthenticationPanel;
 import com.home.timetracker.ui.panel.HasView;
 import com.home.timetracker.ui.panel.additional.MenuPanel;
 import com.home.timetracker.ui.panel.additional.navigation.NavigationHeaderPanel;
@@ -14,6 +15,7 @@ import java.awt.*;
 public class MainFrame extends JFrame implements AsSubscriber,HasView {
     private JPanel currentPanel;
     private MenuPanel menuPanel;
+    private NavigationHeaderPanel headerPanel;
     private JPanel root;
     public MainFrame() throws HeadlessException {
         super("Time tracker");
@@ -32,6 +34,12 @@ public class MainFrame extends JFrame implements AsSubscriber,HasView {
     public void setContentPanel(JPanel panel){
         if(currentPanel != null){
             this.root.remove(currentPanel);
+        }
+        if(panel instanceof AuthenticationPanel){
+            this.menuPanel.setVisible(false);
+            this.headerPanel.setVisible(false);
+        }else {
+            this.headerPanel.setVisible(true);
         }
         this.root.add(panel,BorderLayout.CENTER);
         this.currentPanel = panel;
@@ -59,7 +67,8 @@ public class MainFrame extends JFrame implements AsSubscriber,HasView {
     @Override
     public void createView() {
         this.root = new JPanel(new BorderLayout());
-        this.root.add(new NavigationHeaderPanel(),BorderLayout.PAGE_START);
+        headerPanel = new NavigationHeaderPanel();
+        this.root.add(headerPanel,BorderLayout.PAGE_START);
         this.menuPanel = new MenuPanel();
         this.menuPanel.setVisible(false);
         this.add(menuPanel,BorderLayout.LINE_START);

@@ -5,7 +5,6 @@ import com.home.timetracker.core.AsSubscriber;
 import com.home.timetracker.core.SubjectsStore;
 import com.home.timetracker.core.entity.User;
 import com.home.timetracker.core.entity.task.TrackerTask;
-import com.home.timetracker.core.service.TrackerStorage;
 import com.home.timetracker.ui.MainFrame;
 import com.home.timetracker.ui.panel.*;
 
@@ -13,11 +12,11 @@ import java.awt.*;
 
 public class RouteManager implements AsSubscriber{
     private MainFrame mainFrame;
-    private DashboardPanel dashboardPanel;
-    private AuthenticationPanel authenticationPanel;
-    private TaskInfoPanel taskInfoPanel;
-    private TaskListPanel taskListPanel;
-    private TaskOperationsPanel taskOperationsPanel;
+    private PageJPanel<User> dashboardPanel;
+    private PageJPanel<User> authenticationPanel;
+    private PageJPanel<TrackerTask> taskInfoPanel;
+    private PageJPanel<User> taskListPanel;
+    private PageJPanel<TrackerTask> taskOperationsPanel;
 
     private User currentUser;
 
@@ -32,7 +31,8 @@ public class RouteManager implements AsSubscriber{
             this.taskListPanel = new TaskListPanel();
             this.taskOperationsPanel = new TaskOperationsPanel();
 
-            mainFrame.setContentPanel(dashboardPanel);
+            this.authenticationPanel.init();
+            mainFrame.setContentPanel(authenticationPanel);
             subscribe();
         });
     }
@@ -54,6 +54,7 @@ public class RouteManager implements AsSubscriber{
             }
             case AUTH: {
                 this.currentUser = null;
+                this.authenticationPanel.setPayload(null);
                 this.mainFrame.setContentPanel(this.authenticationPanel);
                 break;
             }

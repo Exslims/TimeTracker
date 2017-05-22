@@ -27,7 +27,9 @@ public class MenuListRenderer extends JButton implements ListCellRenderer<MenuEn
         }else {
             button.setBorder(BorderFactory.createEmptyBorder(0,10,0,4));
         }
-        button.addActionListener(action -> value.getAction().onClick());
+        button.addActionListener(action -> {
+            value.getAction().onClick();
+        });
         return button;
     }
 }
