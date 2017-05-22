@@ -1,7 +1,10 @@
 package com.home.timetracker.ui.panel.additional;
 
 
+import com.home.timetracker.core.SubjectsStore;
 import com.home.timetracker.core.entity.task.TrackerTask;
+import com.home.timetracker.core.routing.ApplicationReducer;
+import com.home.timetracker.core.routing.ApplicationState;
 import com.home.timetracker.ui.AppThemeColor;
 
 import javax.swing.*;
@@ -33,6 +36,11 @@ public class TaskEntryPanel extends BaseJPanel {
                 ));
                 setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             }
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                SubjectsStore.stateSubject.onNext(new ApplicationReducer<>(ApplicationState.TASK_INFO,trackerTask));
+            }
         });
     }
 
@@ -45,13 +53,12 @@ public class TaskEntryPanel extends BaseJPanel {
         ));
         JPanel infoPanel = this.componentsFactory.getGridJPanel(2, 1, 0, 0);
         infoPanel.add(this.componentsFactory.getLabel(this.trackerTask.getType().toString(),13f,AppThemeColor.HEADER_BUTTONS_COLOR));
-        JLabel statusLabel = this.componentsFactory.getLabel(this.trackerTask.getStatus().toString(), 13f, AppThemeColor.HEADER_BUTTONS_COLOR);
+        JLabel statusLabel = this.componentsFactory.getLabel(this.trackerTask.getStatus().toString().replace("_"," "), 13f, AppThemeColor.HEADER_BUTTONS_COLOR);
         statusLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         infoPanel.add(statusLabel);
         this.add(infoPanel,BorderLayout.PAGE_START);
         this.add(this.componentsFactory.getLabel(this.trackerTask.getTaskTitle(),16f, AppThemeColor.MENU_BG_COLOR),BorderLayout.CENTER);
         this.add(this.componentsFactory.getPriorityLabel(this.trackerTask.getPriority(),20),BorderLayout.LINE_END);
-//        this.add(this.componentsFactory.getTaskTypeLabel(this.trackerTask.getType(),20),BorderLayout.LINE_START);
 
         JPanel progressBarsPanel = this.componentsFactory.getGridJPanel(1, 2, 0, 5);
         progressBarsPanel.add(this.componentsFactory.getProgressBar(this.trackerTask.getEstimatedTime(),this.trackerTask.getEstimatedTime()));

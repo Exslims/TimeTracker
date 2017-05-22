@@ -6,6 +6,8 @@ import com.home.timetracker.core.entity.task.TaskStatus;
 import com.home.timetracker.core.entity.task.TaskType;
 import com.home.timetracker.core.entity.task.TrackerTask;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
@@ -21,10 +23,10 @@ public class UserServiceStub implements UserService{
                         TaskPriority.LOW,
                         TaskType.BUG,
                         TaskStatus.OPEN,
-                        null,
-                        null,
-                        null,
-                        null,
+                        user,
+                        user,
+                        LocalDate.now(),
+                        LocalDate.now(),
                         8,0
                 ),
                 new TrackerTask(
@@ -32,32 +34,76 @@ public class UserServiceStub implements UserService{
                         TaskPriority.CRITICAL,
                         TaskType.FEATURE,
                         TaskStatus.OPEN,
-                        null,
-                        null,
-                        null,
-                        null,
+                        user,
+                        user,
+                        LocalDate.now(),
+                        LocalDate.now(),
                         8,3
                 ),
                 new TrackerTask(
                         "TaskTitle",
                         TaskPriority.HIGH,
                         TaskType.BUG,
-                        TaskStatus.OPEN,
-                        null,
-                        null,
-                        null,
-                        null,
+                        TaskStatus.CLOSED,
+                        user,
+                        user,
+                        LocalDate.now(),
+                        LocalDate.now(),
                         8,6
                 ),
                 new TrackerTask(
                         "TaskTitle",
                         TaskPriority.NORMAL,
                         TaskType.FEATURE,
+                        TaskStatus.IN_PROGRESS,
+                        user,
+                        user,
+                        LocalDate.now(),
+                        LocalDate.now(),
+                        8,5
+                ),
+                new TrackerTask(
+                        "TaskTitle",
+                        TaskPriority.NORMAL,
+                        TaskType.FEATURE,
+                        TaskStatus.IN_PROGRESS,
+                        user,
+                        user,
+                        LocalDate.now(),
+                        LocalDate.now(),
+                        8,5
+                ),
+                new TrackerTask(
+                        "TaskTitle",
+                        TaskPriority.NORMAL,
+                        TaskType.FEATURE,
+                        TaskStatus.IN_PROGRESS,
+                        user,
+                        user,
+                        LocalDate.now(),
+                        LocalDate.now(),
+                        8,5
+                ),
+                new TrackerTask(
+                        "TaskTitle",
+                        TaskPriority.NORMAL,
+                        TaskType.FEATURE,
+                        TaskStatus.IN_PROGRESS,
+                        user,
+                        user,
+                        LocalDate.now(),
+                        LocalDate.now(),
+                        8,5
+                ),
+                new TrackerTask(
+                        "TaskTitle",
+                        TaskPriority.LOW,
+                        TaskType.BUG,
                         TaskStatus.OPEN,
-                        null,
-                        null,
-                        null,
-                        null,
+                        user,
+                        user,
+                        LocalDate.now(),
+                        LocalDate.now(),
                         8,5
                 )
         }).collect(Collectors.toList()));

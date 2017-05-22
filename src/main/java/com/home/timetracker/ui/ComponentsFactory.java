@@ -6,6 +6,7 @@ import com.home.timetracker.core.entity.task.TaskType;
 import com.home.timetracker.ui.util.CircleProgressBarUI;
 import com.home.timetracker.ui.util.ScrollUI;
 import com.home.timetracker.ui.util.VerticalScrollContainer;
+import org.apache.commons.lang3.StringUtils;
 import org.imgscalr.Scalr;
 
 import javax.imageio.ImageIO;
@@ -80,6 +81,13 @@ public class ComponentsFactory {
         if(icon != null){
             label.setIcon(new ImageIcon(icon));
         }
+        return label;
+    }
+    public JLabel getIconLabel(String iconPath, int iconSize,String text, float size, Color foreground) {
+        JLabel label = this.getIconLabel(iconPath,iconSize);
+        label.setText(text);
+        label.setForeground(foreground);
+        label.setFont(REGULAR.deriveFont(size));
         return label;
     }
     public JButton getIconButton(String iconPath, int iconSize, Color bgColor) {
@@ -176,6 +184,15 @@ public class ComponentsFactory {
         JProgressBar progressBar = new JProgressBar(0, max);
         progressBar.setForeground(AppThemeColor.HEADER_BUTTONS_COLOR);
         progressBar.setBorderPainted(false);
+        progressBar.setValue(value);
+        return progressBar;
+    }
+    public JProgressBar getProgressBar(int max, int value,Color foreground, String string) {
+        JProgressBar progressBar = new JProgressBar(0, max);
+        progressBar.setForeground(foreground);
+        progressBar.setBorderPainted(false);
+        progressBar.setString(StringUtils.abbreviate(string,25));
+        progressBar.setStringPainted(true);
         progressBar.setValue(value);
         return progressBar;
     }

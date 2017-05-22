@@ -17,4 +17,9 @@ public class UIUtils {
         wrapper.add(panel,BorderLayout.CENTER);
         return wrapper;
     }
+    public static JPanel wrapToVerticalSlide(JComponent panel){
+        JPanel wrapper = wrapToSlide(panel);
+        wrapper.setBorder(BorderFactory.createEmptyBorder(4,0,4,0));
+        return wrapper;
+    }
 }

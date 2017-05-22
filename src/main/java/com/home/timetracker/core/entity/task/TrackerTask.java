@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -20,8 +21,8 @@ public class TrackerTask {
     private User reporter;
     private User assignee;
 
-    private LocalDateTime created;
-    private LocalDateTime due;
+    private LocalDate created;
+    private LocalDate due;
 
     private int estimatedTime;
     private int dueTime;

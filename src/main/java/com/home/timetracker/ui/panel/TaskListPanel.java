@@ -10,6 +10,10 @@ import java.awt.*;
 
 
 public class TaskListPanel extends PageJPanel<User> {
+    public TaskListPanel() {
+        this.initFilterPanel();
+    }
+
     @Override
     public void init() {
         JPanel taskGrid = this.componentsFactory.getGridJPanel(3,0,5,5);
@@ -23,5 +27,8 @@ public class TaskListPanel extends PageJPanel<User> {
             taskGrid.add(new TaskEntryPanel(task));
         });
         this.add(scrollPane, BorderLayout.CENTER);
+    }
+    public void initFilterPanel(){
+
     }
 }
