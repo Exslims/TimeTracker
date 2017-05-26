@@ -4,7 +4,7 @@ import com.home.timetracker.core.SubjectsStore;
 import com.home.timetracker.core.entity.User;
 import com.home.timetracker.core.routing.ApplicationReducer;
 import com.home.timetracker.core.routing.ApplicationState;
-import com.home.timetracker.core.service.TrackerStorage;
+import com.home.timetracker.core.service.TimeTrackerDataServiceStub;
 import com.home.timetracker.ui.AppThemeColor;
 import com.home.timetracker.ui.TextStyle;
 import com.home.timetracker.ui.util.UIUtils;
@@ -13,7 +13,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class AuthenticationPanel extends PageJPanel<User> {
-    private TrackerStorage storage = new TrackerStorage();
     @Override
     public void init() {
         JPanel formPanel = this.componentsFactory.getSlideJPanel(new BorderLayout());
@@ -33,9 +32,10 @@ public class AuthenticationPanel extends PageJPanel<User> {
         login.setBackground(AppThemeColor.HEADER_PRIMARY_COLOR);
         login.setForeground(AppThemeColor.BACKGROUND);
         login.addActionListener(action -> {
-            if(this.storage.tryAuth(userNameField.getText())){
-                SubjectsStore.loginSubject.onNext(this.storage.getCurrentUser());
-                SubjectsStore.stateSubject.onNext(new ApplicationReducer<>(ApplicationState.DASHBOARD,this.storage.getCurrentUser()));
+            User userByName = TimeTrackerDataServiceStub.INSTANCE.getUserByName(userNameField.getText());
+            if(userByName != null){
+                SubjectsStore.loginSubject.onNext(userByName);
+                SubjectsStore.stateSubject.onNext(new ApplicationReducer<>(ApplicationState.DASHBOARD,userByName));
             }
         });
         formPanel.add(login,BorderLayout.PAGE_END);

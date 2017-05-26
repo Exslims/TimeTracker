@@ -7,6 +7,7 @@ import rx.subjects.PublishSubject;
 
 public class SubjectsStore {
     public static final PublishSubject<ApplicationReducer> stateSubject = PublishSubject.create();
+    public static final PublishSubject<Boolean> backStateSubject = PublishSubject.create();
     public static final PublishSubject<Boolean> packSubject = PublishSubject.create();
     public static final PublishSubject<Boolean> openMenuSubject = PublishSubject.create();
     public static final PublishSubject<User> loginSubject = PublishSubject.create();

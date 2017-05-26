@@ -12,6 +12,8 @@ import java.awt.*;
 
 public class RouteManager implements AsSubscriber{
     private MainFrame mainFrame;
+    private ApplicationState prevState = ApplicationState.DASHBOARD;
+    private ApplicationState currentState = ApplicationState.DASHBOARD;
     private PageJPanel<User> dashboardPanel;
     private PageJPanel<User> authenticationPanel;
     private PageJPanel<TrackerTask> taskInfoPanel;
@@ -44,11 +46,17 @@ public class RouteManager implements AsSubscriber{
             this.currentUser = null;
             changeState(new ApplicationReducer<>(ApplicationState.AUTH,null));
         });
+        SubjectsStore.backStateSubject.subscribe(state -> {
+            this.changeState(new ApplicationReducer<>(this.prevState,this.currentUser));
+        });
     }
     private void changeState(ApplicationReducer state){
+        this.prevState = this.currentState;
+        this.currentState = state.getState();
         switch (state.getState()){
             case DASHBOARD: {
                 this.currentUser = (User) state.getPayload();
+                this.dashboardPanel.setPayload(this.currentUser);
                 this.mainFrame.setContentPanel(this.dashboardPanel);
                 break;
             }

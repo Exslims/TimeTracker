@@ -41,7 +41,7 @@ public class NavigationHeaderPanel extends JPanel implements HasView,AsSubscribe
         userProfile.setBackground(AppThemeColor.HEADER_BG_COLOR);
         userProfile.setBorder(BorderFactory.createEmptyBorder(-3,20,0,20));
         userBar.add(this.componentsFactory.getIconButton("app/notification_new.png",28,AppThemeColor.HEADER_BG_COLOR));
-        JLabel userLabel = this.componentsFactory.getLabel(this.currentUser.getUserName(), 22, AppThemeColor.HEADER_BUTTONS_COLOR, TextStyle.REGULAR);
+        JLabel userLabel = this.componentsFactory.getIconLabel("app/account_icon2.png",26,this.currentUser.getUserName(),16f,AppThemeColor.HEADER_BUTTONS_COLOR);
         userLabel.setBorder(BorderFactory.createEmptyBorder(0,15,0,15));
         userBar.add(userLabel);
         JButton logoutButton = this.componentsFactory.getIconButton("app/user_settings.png", 26, AppThemeColor.HEADER_BG_COLOR);

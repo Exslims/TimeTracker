@@ -6,6 +6,7 @@ import com.home.timetracker.core.entity.task.TaskType;
 import com.home.timetracker.ui.util.CircleProgressBarUI;
 import com.home.timetracker.ui.util.ScrollUI;
 import com.home.timetracker.ui.util.VerticalScrollContainer;
+import de.erichseifert.gral.plots.colors.LinearGradient;
 import org.apache.commons.lang3.StringUtils;
 import org.imgscalr.Scalr;
 
@@ -137,10 +138,9 @@ public class ComponentsFactory {
             }
         };
         button.setFont(this.getFont(style,size));
-        button.setBorder(BorderFactory.createLineBorder(AppThemeColor.DIVIDER_COLOR));
-        button.setForeground(AppThemeColor.PRIMARY_COLOR);
-        button.setBackground(AppThemeColor.BACKGROUND);
-        button.setPreferredSize(new Dimension(100,30));
+        button.setForeground(AppThemeColor.BACKGROUND);
+        button.setBackground(AppThemeColor.HEADER_BUTTONS_COLOR);
+        button.setPreferredSize(new Dimension(100,26));
         button.setFocusPainted(false);
         button.addChangeListener(e->{
             if(!button.getModel().isPressed()){

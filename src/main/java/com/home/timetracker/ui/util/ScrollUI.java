@@ -14,7 +14,7 @@ public class ScrollUI extends BasicScrollBarUI {
         this.scrollColor = color;
     }
     public ScrollUI() {
-        this.scrollColor = AppThemeColor.PRIMARY_COLOR;
+        this.scrollColor = AppThemeColor.HEADER_BUTTONS_COLOR;
     }
 
     @Override
@@ -55,7 +55,7 @@ public class ScrollUI extends BasicScrollBarUI {
         }
         g2.setPaint(color);
         g2.fillRect(r.x, r.y, r.width, r.height);
-        g2.setPaint(AppThemeColor.BACKGROUND_DARK);
+        g2.setPaint(AppThemeColor.HEADER_BORDER_COLOR);
         g2.drawRect(r.x, r.y, r.width, r.height);
         g2.dispose();
     }
