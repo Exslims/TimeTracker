@@ -13,10 +13,12 @@ import org.imgscalr.Scalr;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class ComponentsFactory {
     private Font LIGHT_FONT;
@@ -59,11 +61,39 @@ public class ComponentsFactory {
         label.setFont(this.getFont(style,size));
         return label;
     }
+    public JLabel getLabel(String text, float size, Color foreground, TextStyle style, int align) {
+        JLabel label = new JLabel(text);
+        label.setForeground(foreground);
+        label.setFont(this.getFont(style,size));
+        label.setHorizontalAlignment(align);
+        return label;
+    }
     public JTextField getTextField(String text){
         JTextField textField = new JTextField(text);
         textField.setForeground(AppThemeColor.PRIMARY_TEXT);
         textField.setFont(LIGHT_FONT.deriveFont(16f));
         return textField;
+    }
+    public JTextArea getTextArea(String text){
+        JTextArea area = new JTextArea(text);
+        area.setForeground(AppThemeColor.PRIMARY_TEXT);
+        area.setFont(LIGHT_FONT.deriveFont(16f));
+        area.setLineWrap(true);
+        area.setWrapStyleWord(true);
+        area.setBorder(BorderFactory.createLineBorder(AppThemeColor.HEADER_BORDER_COLOR));
+        return area;
+    }
+    public JComboBox<String> getComboBox(Class<? extends Enum<?>> itemsClass, String selected){
+        String[] items = Arrays.stream(itemsClass.getEnumConstants()).map(Enum::name).toArray(String[]::new);
+        return getComboBox(items,selected);
+    }
+    public JComboBox<String> getComboBox(String[] items, String selected){
+        JComboBox<String> stringJComboBox = new JComboBox<>(items);
+        stringJComboBox.setFont(REGULAR.deriveFont(16f));
+        stringJComboBox.setBorder(null);
+        stringJComboBox.setBackground(AppThemeColor.BACKGROUND);
+        stringJComboBox.setSelectedItem(selected);
+        return stringJComboBox;
     }
     public JLabel getIconLabel(String iconPath, int iconSize) {
         JLabel label = new JLabel("");

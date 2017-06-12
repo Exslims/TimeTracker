@@ -19,11 +19,13 @@ public class TimeTrackerDataServiceStub implements TimeTrackerDataService {
     }
     public static final TimeTrackerDataServiceStub INSTANCE = TimeTrackerDataServiceStubHolder.HOLDER_INSTANCE;
     private User currentUser; //stub data
+    private List<TrackerTask> tasks;
     @Override
     public User getUserByName(String name) {
         User user = new User();
         this.currentUser = user;
         user.setUserName(name);
+        this.tasks = getTasks();
         user.setTasks(this.getUserTasks(user));
         return user;
     }
@@ -33,6 +35,7 @@ public class TimeTrackerDataServiceStub implements TimeTrackerDataService {
         return Arrays.stream(new TrackerTask[] {
                 new TrackerTask(
                         "TaskTitle",
+                        "Task description",
                         TaskPriority.LOW,
                         TaskType.BUG,
                         TaskStatus.OPEN,
@@ -49,6 +52,7 @@ public class TimeTrackerDataServiceStub implements TimeTrackerDataService {
                 ),
                 new TrackerTask(
                         "TaskTitle",
+                        "Task description",
                         TaskPriority.CRITICAL,
                         TaskType.FEATURE,
                         TaskStatus.OPEN,
@@ -65,6 +69,7 @@ public class TimeTrackerDataServiceStub implements TimeTrackerDataService {
                 ),
                 new TrackerTask(
                         "TaskTitle",
+                        "Task description",
                         TaskPriority.HIGH,
                         TaskType.BUG,
                         TaskStatus.CLOSED,
@@ -81,6 +86,7 @@ public class TimeTrackerDataServiceStub implements TimeTrackerDataService {
                 ),
                 new TrackerTask(
                         "TaskTitle",
+                        "Task description",
                         TaskPriority.NORMAL,
                         TaskType.FEATURE,
                         TaskStatus.IN_PROGRESS,
@@ -97,6 +103,7 @@ public class TimeTrackerDataServiceStub implements TimeTrackerDataService {
                 ),
                 new TrackerTask(
                         "TaskTitle",
+                        "Task description",
                         TaskPriority.NORMAL,
                         TaskType.FEATURE,
                         TaskStatus.IN_PROGRESS,
@@ -113,6 +120,7 @@ public class TimeTrackerDataServiceStub implements TimeTrackerDataService {
                 ),
                 new TrackerTask(
                         "TaskTitle",
+                        "Task description",
                         TaskPriority.NORMAL,
                         TaskType.FEATURE,
                         TaskStatus.IN_PROGRESS,
@@ -129,6 +137,7 @@ public class TimeTrackerDataServiceStub implements TimeTrackerDataService {
                 ),
                 new TrackerTask(
                         "TaskTitle",
+                        "Task description",
                         TaskPriority.NORMAL,
                         TaskType.FEATURE,
                         TaskStatus.IN_PROGRESS,
@@ -145,6 +154,7 @@ public class TimeTrackerDataServiceStub implements TimeTrackerDataService {
                 ),
                 new TrackerTask(
                         "TaskTitle",
+                        "Task description",
                         TaskPriority.LOW,
                         TaskType.BUG,
                         TaskStatus.OPEN,
@@ -164,12 +174,12 @@ public class TimeTrackerDataServiceStub implements TimeTrackerDataService {
 
     @Override
     public void addTask(TrackerTask task) {
-        /*NOP*/
+        this.tasks.add(task);
     }
 
     @Override
     public List<TrackerTask> getUserTasks(User user) {
-        return this.getTasks()
+        return this.tasks
                 .stream()
                 .filter(trackerTask -> (trackerTask.getAssignee() != null && trackerTask.getAssignee().equals(user)))
                 .collect(Collectors.toList());
@@ -177,7 +187,7 @@ public class TimeTrackerDataServiceStub implements TimeTrackerDataService {
 
     @Override
     public List<TrackerTask> getUnassignedTasks() {
-        return this.getTasks()
+        return this.tasks
                 .stream()
                 .filter(trackerTask -> trackerTask.getAssignee() == null)
                 .collect(Collectors.toList());
@@ -185,7 +195,7 @@ public class TimeTrackerDataServiceStub implements TimeTrackerDataService {
 
     @Override
     public List<TrackerTask> getTasksByPriority(TaskPriority priority) {
-        return this.getTasks()
+        return this.tasks
                 .stream()
                 .filter(trackerTask -> trackerTask.getPriority().equals(priority))
                 .collect(Collectors.toList());
@@ -193,7 +203,7 @@ public class TimeTrackerDataServiceStub implements TimeTrackerDataService {
 
     @Override
     public List<TrackerTask> getTasksByType(TaskType type) {
-        return this.getTasks()
+        return this.tasks
                 .stream()
                 .filter(trackerTask -> trackerTask.getType().equals(type))
                 .collect(Collectors.toList());
@@ -201,7 +211,7 @@ public class TimeTrackerDataServiceStub implements TimeTrackerDataService {
 
     @Override
     public List<TrackerTask> getTasksByStatus(TaskStatus status) {
-        return this.getTasks()
+        return this.tasks
                 .stream()
                 .filter(trackerTask -> trackerTask.getStatus().equals(status))
                 .collect(Collectors.toList());

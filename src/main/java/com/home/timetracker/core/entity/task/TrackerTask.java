@@ -15,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 public class TrackerTask {
     private String taskTitle;
+    private String description;
 
     private TaskPriority priority = TaskPriority.NORMAL;
     private TaskType type = TaskType.BUG;
